@@ -1,14 +1,13 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from './views/Home.vue'
-import Blog from './views/Blogs.vue'
-import PostDetail from './components/PostDetail.vue'
-import List from './components/List.vue'
+import Vue from "vue";
+import Router from "vue-router";
+import Blog from "./views/Blogs.vue";
+import PostDetail from "./components/PostDetail.vue";
+import List from "./components/List.vue";
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   routes: [
     // {
@@ -24,9 +23,8 @@ export default new Router({
     //   // which is lazy-loaded when the route is visited.
     //   component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     // },
-    { path: '/', component: Blog },
-    { path: '/post/:id', component: PostDetail },
-    { path: '/list', component: List },
-
+    { path: "/", component: Blog },
+    { path: "/post/:id", component: PostDetail },
+    { path: "/list", component: List }
   ]
-})
+});

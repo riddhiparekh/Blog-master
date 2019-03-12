@@ -1,48 +1,64 @@
 <template>
   <article class="col-sm-12">
-		<h1>{{ post.title }}</h1>
-		<input class="blog-body" :value='post.body' readonly>
-		<router-link :to="'/'"><b-button class="btn btn-primaryt">Back</b-button></router-link>
+    <h1>{{ post.title }}</h1>
+    <input id="bodyText" @dblclick="highlightWord" class="blog-body" :value="post.body" readonly>
+    <router-link :to="'/'">
+      <b-button class="btn btn-primaryt">Back</b-button>
+    </router-link>
   </article>
 </template>
 
 <script>
-import { mapGetters,mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
     return {
       post: {},
-    }
+      selectedWord: ""
+    };
   },
   computed: {
     // mix the getters into computed with object spread operator
-    ...mapGetters([
-      'blogsData'
-    ])
+    ...mapGetters(["blogsData"])
   },
-  mounted(){
-    	this.post = this.blogsData[this.$route.params.id]
+  mounted() {
+    console.log("in mounted");
+    console.log(this.blogsData);
+    this.post = this.blogsData[this.$route.params.id];
   },
   methods: {
-  	// highlightWord(){
-  	// 	console.log('gfhrf')
-  	// 	var  t = (document.all) ? document.selection.createRange().text : document.getSelection();
-
-   //  alert(t)
-  	// }
+    ...mapActions(["addWord"]),
+    highlightWord() {
+      this.selectedWord =
+        (document.selection && document.selection.createRange().text) ||
+        (window.getSelection && window.getSelection().toString());
+      if (this.selectedWord == "") {
+        this.selectedWord = this.getSelectionText();
+      }
+      this.$awn.confirm(
+        "Do you want to highlight the selected word?",
+        this.callAddWord
+      );
+    },
+    // For getting selected text in firefox
+    getSelectionText() {
+      if (window.getSelection) {
+        try {
+          var ta = document.activeElement;
+          return ta.value.substring(ta.selectionStart, ta.selectionEnd);
+        } catch (e) {
+          console.log("Cant get selection text");
+        }
+      }
+    },
+    callAddWord() {
+      this.addWord(this.selectedWord);
+      this.selectedWord = "";
+    }
   }
-
-}
+};
 </script>
 
 <style type="scss">
-.blog-body{
-	width: 100% !important;
-    border: none !important;
-    font-size: 1rem !important;
-    font-weight: 400 !important;
-    line-height: 1.5 !important;
-    margin-bottom: 1rem !important;
-}
 </style>

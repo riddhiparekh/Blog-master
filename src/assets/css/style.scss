@@ -1,0 +1,80 @@
+//colors
+$color_pickled_bluewood_approx: #2c3e50;
+$color_ocean_green_approx: #42b983;
+$red: #ff0000;
+$yellow: yellow;
+$black: black;
+
+//fonts
+$font_0: Poppins;
+
+body {
+  font-family: "Poppins", sans-serif !important;
+}
+
+#app {
+  font-family: $font_0;
+  text-align: center;
+  color: $color_pickled_bluewood_approx;
+}
+#nav {
+  padding: 30px;
+  a {
+    font-weight: bold;
+    color: $color_pickled_bluewood_approx;
+    &.router-link-exact-active {
+      color: $color_ocean_green_approx;
+    }
+  }
+}
+.blog {
+  i {
+    padding-right: 5px;
+  }
+}
+.blog-title {
+  text-transform: capitalize;
+}
+.blog-heading {
+  font-size: 4rem;
+}
+.pull-right {
+  float: right;
+  margin-right: 10px;
+}
+.error {
+  color: $red;
+  float: left;
+}
+.highlightText {
+  background: $yellow;
+}
+.text {
+  position: relative;
+  font-size: 14px;
+  color: $black;
+  width: 250px;
+  &.ellipsis::after {
+    content: "...";
+    position: absolute;
+    right: -12px;
+    bottom: 4px;
+  }
+}
+.text-concat {
+  position: relative;
+  display: inline-block;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 3.6em;
+  line-height: 1.2em;
+  text-align: justify;
+}
+.blog-body {
+  width: 100% !important;
+  border: none !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  margin-bottom: 1rem !important;
+}
