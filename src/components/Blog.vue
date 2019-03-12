@@ -7,7 +7,7 @@
     </router-link>
     <paginate name="blogs" :list="posts" :per="10" tag="div">
       <section :key="blog.id" v-for="(blog,i) in paginated('blogs')">
-        <a href="#" @click="showDetails(i)">
+        <a href.prevent="" @click="showDetails(i)">
           <span class="blog-title">{{ blog.title }}</span>
         </a>
         <b-button class="btn btn-primary pull-right" @click="editPopUp(i)">

@@ -8,6 +8,7 @@ Vue.use(Router);
 
 export default new Router({
   mode: "history",
+  hash: false,
   base: process.env.BASE_URL,
   routes: [
     // {
@@ -25,6 +26,7 @@ export default new Router({
     // },
     { path: "/", component: Blog },
     { path: "/post/:id", component: PostDetail },
-    { path: "/list", component: List }
+    { path: "/list", component: List },
+    { path: '*', redirect: '/' },
   ]
 });

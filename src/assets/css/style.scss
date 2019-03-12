@@ -49,18 +49,6 @@ body {
 .highlightText {
   background: $yellow;
 }
-.text {
-  position: relative;
-  font-size: 14px;
-  color: $black;
-  width: 250px;
-  &.ellipsis::after {
-    content: "...";
-    position: absolute;
-    right: -12px;
-    bottom: 4px;
-  }
-}
 .text-concat {
   position: relative;
   display: inline-block;

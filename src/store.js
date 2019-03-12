@@ -37,14 +37,12 @@ export default new Vuex.Store({
       state.blogs = json;
       state.loaded = 1;
       state.lastId = json[json.length - 1].id;
-      console.log(state.lastId);
     },
     addBlogs(state, data) {
       state.lastId = data.id;
       state.blogs.unshift(data);
     },
     editBlogs(state, data) {
-      console.log(data);
       let pos = data.isEdit;
       delete data.isEdit;
       state.blogs[pos] = data;
@@ -56,12 +54,19 @@ export default new Vuex.Store({
       // state.matchedBlogs = state.blogs.filter(function(el) {
       //   return el.body.indexOf(word) > -1;
       // });
-      word = ' '+word+' '
+      state.matchedBlogs = [];
       let tempBlog;
       for (let i = 0; i < state.blogs.length; i++) {
-        if (state.blogs[i].body.indexOf(word) > -1) {
+        let wordIndex = state.blogs[i].body.includes(word);
+        if (wordIndex) {
+          let snipText = ''
+          if(wordIndex > 61)
+            snipText = state.blogs[i].body.slice(0,61)+state.blogs[i].body.slice(wordIndex,wordIndex+61)+state.blogs[i].body.slice(wordIndex+61)
+          else
+          snipText = state.blogs[i].body.slice(wordIndex-1,wordIndex+61)+state.blogs[i].body.slice(wordIndex+61,wordIndex+122)
           tempBlog = state.blogs[i];
           tempBlog.arrInd = i;
+          tempBlog.body = snipText;
           state.matchedBlogs.push(tempBlog);
         }
       }

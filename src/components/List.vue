@@ -7,22 +7,26 @@
     </div>
     <div v-else>
       <span>There are no highlighted words.</span>
+
       <p class="note">Note:To highlight words open your blog and double click on the words in the content you like to be highlighted.</p>
     </div>
+
     <br>
     <div v-for="blog in wordsBlog" :key="blog.arrInd">
       <section>
-        <span class="blog-title">{{ blog.title }}</span>
-        <br>
-        <div class="text ellipsis">
+        <div class="row col-md-12">
+        <span class="col-md-6 blog-title">{{ blog.title }}</span>
+        <p class="col-md-3 text ellipsis">
           <span class="text-concat">{{ blog.body }}</span>
-        </div>
-        <router-link :to="'/post/' + (blog.arrInd)">
+        </p>
+        <router-link class="col-md-3" :to="'/post/' + (blog.arrInd)">
           <b-button class="btn btn-info pull-right">Preview</b-button>
         </router-link>
+        </div>
         <hr>
       </section>
     </div>
+    <b-button class="btn btn-primaryt" @click="$router.go(-1)">Back</b-button>
   </div>
 </template>
 
@@ -46,9 +50,6 @@ export default {
   },
   methods: {
     ...mapActions(["matchBlog","flushWordsList"])
-    // fetchData(word){
-    // 	this.matchBlog(word)
-    // }
   }
 };
 </script>

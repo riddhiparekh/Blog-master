@@ -1,10 +1,11 @@
 <template>
   <article class="col-sm-12">
     <h1>{{ post.title }}</h1>
-    <input id="bodyText" @dblclick="highlightWord" class="blog-body" :value="post.body" readonly>
-    <router-link :to="'/'">
-      <b-button class="btn btn-primaryt">Back</b-button>
-    </router-link>
+    <p  id="bodyText" @dblclick="highlightWord" class="blog-body">{{post.body}}</p>
+    <!-- <input id="bodyText" @dblclick="highlightWord" class="blog-body" :value="post.body" readonly> -->
+      <p class="note">Note:To highlight words double click on the words in the content you like to be highlighted.</p>
+      <b-button class="btn btn-primaryt" @click="$router.go(-1)">Back</b-button>
+      
   </article>
 </template>
 
@@ -23,8 +24,8 @@ export default {
     ...mapGetters(["blogsData", "wordsList"])
   },
   mounted() {
-    console.log("in mounted");
-    console.log(this.blogsData);
+    if(!this.blogsData[this.$route.params.id])
+      this.$router.push('/')
     this.post = this.blogsData[this.$route.params.id];
   },
   methods: {
@@ -56,6 +57,7 @@ export default {
     // Push the selected word into the store array
     callAddWord() {
       // Check if word is already in list of highlighted words
+      this.selectedWord = this.selectedWord.trim();
       if (this.wordsList.includes(this.selectedWord))
         this.$awn.alert("The selected word is already highlighted");
       else {
