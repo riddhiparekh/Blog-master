@@ -119,17 +119,17 @@ export default {
   // },
   methods: {
     ...mapActions(["getAllBlogs", "addBlog", "editBlog", "deleteBlog"]),
+    // Modal Ok button click, validates if input are correct than calls the add blog method.
     handleOk(evt) {
       // Prevent modal from closing
       evt.preventDefault();
       this.$validator.validate().then(result => {
         if (result) {
           this.handleSubmit();
-        } else {
         }
       });
     },
-    handleCancel(evt) {
+    handleCancel() {
       this.createPost = [];
       this.errors.clear();
       console.log(this.errors);

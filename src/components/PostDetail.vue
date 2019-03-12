@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     // mix the getters into computed with object spread operator
-    ...mapGetters(["blogsData"])
+    ...mapGetters(["blogsData", "wordsList"])
   },
   mounted() {
     console.log("in mounted");
@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     ...mapActions(["addWord"]),
+    // For getting selected text in chrome,IE
     highlightWord() {
       this.selectedWord =
         (document.selection && document.selection.createRange().text) ||
@@ -52,9 +53,18 @@ export default {
         }
       }
     },
+    // Push the selected word into the store array
     callAddWord() {
-      this.addWord(this.selectedWord);
-      this.selectedWord = "";
+      // Check if word is already in list of highlighted words
+      if (this.wordsList.includes(this.selectedWord))
+        this.$awn.alert("The selected word is already highlighted");
+      else {
+        var myRegEx = /^[a-z0-9]+$/i;
+        var isValid = myRegEx.test(this.selectedWord);
+        if (isValid) this.addWord(this.selectedWord);
+        else this.$awn.alert("You can highlight only alphanumeric words");
+        this.selectedWord = "";
+      }
     }
   }
 };

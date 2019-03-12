@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     blogs: [],
     loaded: 0,
-    highlightedWords: ["vue", "react"],
+    highlightedWords: [],
     matchedBlogs: [],
     lastId: ""
   },
@@ -53,13 +53,24 @@ export default new Vuex.Store({
       state.blogs.splice(index, 1);
     },
     setWordsBlog(state, word) {
-      state.matchedBlogs = state.blogs.filter(function(el) {
-        return el.body.indexOf(word) > -1;
-      });
+      // state.matchedBlogs = state.blogs.filter(function(el) {
+      //   return el.body.indexOf(word) > -1;
+      // });
+      word = ' '+word+' '
+      let tempBlog;
+      for (let i = 0; i < state.blogs.length; i++) {
+        if (state.blogs[i].body.indexOf(word) > -1) {
+          tempBlog = state.blogs[i];
+          tempBlog.arrInd = i;
+          state.matchedBlogs.push(tempBlog);
+        }
+      }
     },
     addWords(state, word) {
       state.highlightedWords.push(word);
-      console.log('in mutation')
+    },
+    flushWordList(state){
+      state.matchedBlogs = [];
     }
   },
   actions: {
@@ -83,6 +94,9 @@ export default new Vuex.Store({
     },
     addWord({ commit }, word) {
       commit("addWords", word);
+    },
+    flushWordsList({ commit }) {
+       commit("flushWordList");
     }
   }
 });
